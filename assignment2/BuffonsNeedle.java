@@ -8,10 +8,10 @@ public class BuffonsNeedle {
 
         System.out.print("Enter number of iterations: ");
 
-        int throw_count = scanner.nextInt();
+        int throwCount = scanner.nextInt();
         int sucesses = 0;
 
-        for (int i = 0; i < throw_count; i++) {
+        for (int i = 0; i < throwCount; i++) {
             // Our strategy is that we pick a random x midpoint and a random angle.
             // Then we calculate how wide an axis-alligned box that fully encapsulates
             // the neelde would be, and  the left hand x-coordinate of said box.
@@ -25,21 +25,21 @@ public class BuffonsNeedle {
             
             // If the needle had a length other than 1 we would multiply it here
             double width = Math.abs(Math.cos(angle));
-            double left_corner = midpoint-width/2;
+            double leftCorner = midpoint-width/2;
             
             // Check if we're overlapping either of the corners
-            boolean overlaps = overlaps_point(0.0, left_corner, width) || overlaps_point(2.0, left_corner, width);
+            boolean overlaps = overlapsPoint(0.0, leftCorner, width) || overlapsPoint(2.0, leftCorner, width);
 
             if (overlaps) {
                 sucesses++;
             }
         }
 
-        System.out.println("Out of " + throw_count + " throws, " + sucesses + " hit an edge.");
-        System.out.println("Which means we estimate π to be " + (double)throw_count/(double)sucesses);
+        System.out.println("Out of " + throwCount + " throws, " + sucesses + " hit an edge.");
+        System.out.println("Which means we estimate π to be " + (double)throwCount/(double)sucesses);
     }
 
-    static boolean overlaps_point(double x_point, double left_corner, double width) {
-        return left_corner < x_point && (left_corner+width) > x_point;
+    static boolean overlapsPoint(double xPoint, double leftCorner, double width) {
+        return leftCorner < xPoint && (leftCorner+width) > xPoint;
     }
 }

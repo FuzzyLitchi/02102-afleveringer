@@ -65,13 +65,13 @@ public class Mandelbrot {
         // Handle input
         System.out.println("Input a complex number to center the rendering around.");
         System.out.print("Real component: ");
-        double midpoint_real = scanner.nextDouble();
+        double midpointReal = scanner.nextDouble();
         System.out.print("Imaginary component: ");
-        double midpoint_imaginary = scanner.nextDouble();
-        System.out.println("Centering around " + new Complex(midpoint_real, midpoint_imaginary));
+        double midpointImaginary = scanner.nextDouble();
+        System.out.println("Centering around " + new Complex(midpointReal, midpointImaginary));
 
         System.out.print("Input the side length of the square area that we're rendering\n (as a real number): ");
-        double side_length = scanner.nextDouble();
+        double sideLength = scanner.nextDouble();
 
         // Init StdDraw
         StdDraw.setXscale(0, 1);
@@ -89,7 +89,7 @@ public class Mandelbrot {
         }
 
         // Grid calculations
-        double cell_width = side_length/(GRID_SIZE-1);
+        double cellWidth = sideLength/(GRID_SIZE-1);
 
         StdDraw.show(0);
         // We iterate over a grid where a and b are the indexes in the horizontal
@@ -97,7 +97,7 @@ public class Mandelbrot {
         for (int a = 0; a < GRID_SIZE; a++) {
             for (int b = 0; b < GRID_SIZE; b++) {
                 // We scale the indexes into points around the midpoints that range from
-                // midpoint-side_length/2 to midpoint+side_length/2
+                // midpoint-sideLength/2 to midpoint+sideLength/2
                 //
                 // +-------------------+ \
                 // |                   | |
@@ -112,8 +112,8 @@ public class Mandelbrot {
                 // \____side length____/
                 //
                 Complex z = new Complex(
-                    midpoint_real - side_length/2 + cell_width * a,
-                    midpoint_imaginary - side_length/2 + cell_width * b
+                    midpointReal - sideLength/2 + cellWidth * a,
+                    midpointImaginary - sideLength/2 + cellWidth * b
                 );
                 int depth = iterate(z);
 
