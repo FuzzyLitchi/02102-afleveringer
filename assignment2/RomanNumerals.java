@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class RomanNumerals {
-    public static void main(String args[]) {
+    public static void main(String args[]) throws Exception {
         Scanner console = new Scanner(System.in);
 
         // This sentence is gramatically incorrect! We're missing an article before "positive"
@@ -13,14 +13,14 @@ public class RomanNumerals {
         System.out.println(integer + " = " + romanNumeral);
     }
 
-    static String ToRomanNumerals(int integer) {
+    static String ToRomanNumerals(int integer) throws Exception {
         // The maximum number we can convert is 3999
         if (integer > 3999) {
-            return "Error: " + integer + " is too big to convert into roman numerals!";
+            throw new Exception("Error: " + integer + " is too big to convert into roman numerals!");
         }
         // We can't represent negative numbers or 0
         if (integer < 1) {
-            return "Error: " + integer + " isn't positive! We can only convert positive integers";
+            throw new Exception("Error: " + integer + " isn't positive! We can only convert positive integers");
         }
 
         // These arrays include the roman numeral equivilent of it's own index. For example

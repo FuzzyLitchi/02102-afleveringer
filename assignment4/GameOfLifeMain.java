@@ -1,13 +1,18 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Random;
+import java.util.Scanner;
 
 public class GameOfLifeMain {
-    public static void main(String[] args) {
-        GameOfLife game = GameOfLife.Random(100);
+    public static void main(String[] args) throws FileNotFoundException {
+        // GameOfLife game = GameOfLife.Random(100);
+        GameOfLife game = new GameOfLife("glider_gun.gol");
 
-        StdDraw.setXscale(0, 100);
-        StdDraw.setYscale(0, 100);
+        // Initalize StdDraw
+        StdDraw.setXscale(0, game.size);
+        StdDraw.setYscale(0, game.size);
         StdDraw.setPenColor(StdDraw.CYAN);
-        StdDraw.setPenRadius(1.0/100);
+        StdDraw.setPenRadius(1.0/game.size);
 
         while (true) {
             StdDraw.show(0);
@@ -33,6 +38,24 @@ class GameOfLife {
     GameOfLife(int[][] initialState) {
         this.size = initialState.length;
         this.board = initialState;
+    }
+
+    // Read board from file
+    public GameOfLife(String path) throws FileNotFoundException {
+        Scanner scanner = new Scanner(new File(path));
+        
+        // Calculate the size from the first line
+        String firstLine = scanner.nextLine();
+        size = firstLine.split(" ").length;
+        board = new int[size][size];
+
+        // Reset scanner and process file.
+        scanner = new Scanner(new File(path));
+        for (int y = 0; y < size; y++) {
+            for (int x = 0; x < size; x++) {
+                board[x][y] = scanner.nextInt();
+            }
+        }
     }
 
     public static GameOfLife Random(int size) {
@@ -77,10 +100,7 @@ class GameOfLife {
     }
 
     int getState(int x, int y) {
-        if (x >= size || x < 0 || y >= size || y < 0) {
-            return 0;
-        }
-        return board[x][y];
+        return board[(x+size)%size][(y+size)%size];
     }
 
     int liveNeighbours(int x, int y) {

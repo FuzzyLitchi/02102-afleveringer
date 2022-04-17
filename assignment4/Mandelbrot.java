@@ -59,7 +59,7 @@ class Complex {
 }
 
 public class Mandelbrot {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         Scanner scanner = new Scanner(System.in);
 
         // Handle input
@@ -80,13 +80,7 @@ public class Mandelbrot {
         StdDraw.setPenColor(StdDraw.RED);
 
         // Load colors
-        Color[] colors;
-        try {
-            colors = loadColorsFromFile("blues.mnd");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return;
-        }
+        Color[] colors = loadColorsFromFile("blues.mnd");
 
         // Grid calculations
         double cellWidth = sideLength/(GRID_SIZE-1);
