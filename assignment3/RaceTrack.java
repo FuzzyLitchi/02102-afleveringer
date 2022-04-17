@@ -100,7 +100,7 @@ public class RaceTrack {
             // was on the left side of the goal and the new position is on the right. We
             // can cheat pretty easily by moving left and then right, but it works if you're
             // honest.
-            if (oldPosition.isInBox(new Vector(0, 10), 10, 10) && position.isInBox(new Vector(10, 10), 10, 10)) {
+            if (oldPosition.isInBox(new Vector(0, 10), 9, 10) && position.isInBox(new Vector(10, 10), 10, 10)) {
                 System.out.println("Lap completed in " + moves + " moves!");
                 moves = 0;
             }
