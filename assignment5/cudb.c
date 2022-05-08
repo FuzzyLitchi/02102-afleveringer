@@ -16,7 +16,15 @@ typedef struct {
 int read_int() {
     // Ok so.
     // We read a whole line, and only after reading the line do we parse it.
-    // This way we don't leave characters in the input buffer.
+    // This way we don't leave characters in the "input buffer". Which is to
+    // say, if a user input "10\n" we read the newline also. If we did scanf
+    // that would leave the newline character in there. I don't know if there
+    // is a better way to do this. Maybe I should read the book.
+
+    // Well that was no help at all. I mean parsing numbers based on just
+    // reading until it is no longer a number is pretty foolish, we should
+    // be checking that the integer is immediately proceeded by either EOF
+    // or a newline and then an EOF. Or as regex /^[0-9]\n?$/
     char input[100];
     fgets(input, 100, stdin);
 
@@ -27,6 +35,13 @@ int read_int() {
 }
 
 void print_students(student_t database[], int student_count) {
+    // If there are no students, display a helpful message.
+    if (student_count == 0) {
+        printf("\nThere are no students in the database.\n\n");
+        return;
+    }
+    // Otherwise, display a user friendly table
+
     printf("\nNumber Name Year Start  GPA\n");
 
     for (int i = 0; i < student_count; i++) {
@@ -98,7 +113,7 @@ void add_student(student_t database[], int* student_count) {
     int gpa = read_int();
     // Validate GPA
     if (gpa < 0 || gpa > 255) {
-        printf("Start year must be a number between 0 and 255 (inclusive).\n\n");
+        printf("GPA must be between 0 and 255 (inclusive).\n\n");
         return;
     }
 
@@ -111,23 +126,30 @@ void add_student(student_t database[], int* student_count) {
 
     database[*student_count] = student;
     (*student_count)++;
+
+    printf("Student added.\n\n");
+}
+
+void print_menu_options() {
+    printf(
+        "0: Halt\n"
+        "1: List all students\n"
+        "2: Add a new student\n"
+        "\n"
+    );
 }
 
 int main() {
     puts("Welcome to CUDB - The C University Data Base");
 
     // Initliaze the "database"
-    student_t database[10000];
+    student_t database[10000]; // We have to be able to store 10_000 students
     int student_count = 0;
 
+    print_menu_options();
+
     while (1) {
-        printf(
-            "0: Halt\n"
-            "1: List all students\n"
-            "2: Add a new student\n"
-            "\n"
-            "Enter action: "
-        );
+        printf("Enter action: ");
 
         // Ugh idk how I'm supposed to do this.
         int choice = read_int();
@@ -172,6 +194,7 @@ int main() {
 
             default: 
                 printf("Invalid action. Select a valid option:\n\n");
+                print_menu_options();
                 break;
         }
     }

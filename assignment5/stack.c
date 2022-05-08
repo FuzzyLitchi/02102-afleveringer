@@ -28,7 +28,7 @@ stack_t* newStack(void) {
 }
 
 int pop(stack_t* stack) {
-    if (stack->size == 0) {
+    if (empty(stack)) {
         // There's nothing to pop!! We gotta crash
         printf("pop() ran on an empty stack! Aborting!\n");
         exit(112);
@@ -56,6 +56,12 @@ void push(stack_t* stack, int value) {
 }
 
 int top(stack_t* stack) {
+    if (empty(stack)) {
+        // OH NO!
+        printf("top() ran on an empty stack! Aborting!\n");
+        exit(112);
+    }
+
     return stack->array[stack->size-1];
 }
 
