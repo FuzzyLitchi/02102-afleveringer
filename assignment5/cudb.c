@@ -1,6 +1,3 @@
-// It's not actually 4 characters it's 4 bytes/chars.
-// Nørd isn't a valid name even though it should be
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -24,7 +21,9 @@ int read_int() {
     // Well that was no help at all. I mean parsing numbers based on just
     // reading until it is no longer a number is pretty foolish, we should
     // be checking that the integer is immediately proceeded by either EOF
-    // or a newline and then an EOF. Or as regex /^[0-9]\n?$/
+    // or a newline and then an EOF. Or as regex /^[0-9]\n?$/ . I'm not
+    // implementing a regex engine or a read_line() function though; I
+    // don't think it's worth the effort.
     char input[100];
     fgets(input, 100, stdin);
 
