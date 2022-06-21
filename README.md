@@ -1,5 +1,5 @@
 # Assignments for 02102 Introductory Programming
-This is going to be very boring for me
+These are all the assignments for my DTU programming course.
 
 # Hand-in
 zip file of all .java files and pdf
